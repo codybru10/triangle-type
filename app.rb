@@ -1,15 +1,18 @@
 require('sinatra')
 require('sinatra/reloader')
-require('./lib/largest_prime')
+require('./lib/triangle')
 also_reload('lib/**/*.rb')
 
 get('/') do
   erb(:index)
 end
 
-get('/number-input-form') do
-  @number_input = (params.fetch('first_num')).to_i
-  @number2_input = (params.fetch('second_num')).to_i
-  @prime_output = (@number_input).find_primes(@number2_input)
-  erb(:prime_output)
+get('/side-input-form') do
+  side1 = (params.fetch("side-one")).to_i
+  side2 = (params.fetch("side-two")).to_i
+  side3 = (params.fetch("side-three")).to_i
+
+  @triangle = Triangle.new(side1, side2, side3).type?()
+
+  erb(:triangle_output)
 end
